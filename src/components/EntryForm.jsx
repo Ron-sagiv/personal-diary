@@ -108,7 +108,7 @@ const EntryForm = () => {
         {errors.content && (
           <p className="text-red-500 text-sm">{errors.content}</p>
         )}
-        <button type="submit" className="btn">
+        <button type="submit" className="btn bg-[#e990ea] text-inherit">
           Submit
         </button>
       </fieldset>
