@@ -1,9 +1,119 @@
+import { useState } from 'react';
 
+const EntryForm = () => {
+  const [formData, setFormData] = useState({
+    title: '',
+    imageUrl: '',
+    date: '',
+    content: '',
+  });
 
-const EntryForm = ()=>{
+  const [errors, setErrors] = useState({});
+  const [submittedData, setSubmittedData] = useState(null);
 
-    
-    return ()
-}
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-export default EntryForm
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const validate = () => {
+    const newErrors = {};
+
+    if (!formData.title.trim()) {
+      newErrors.title = 'Title is required.';
+    }
+
+    if (!formData.imageUrl.trim() || !formData.imageUrl.includes('https://')) {
+      newErrors.imageUrl = 'Please enter a valid image URL.';
+    }
+    // date
+    if (!formData.date) {
+      newErrors.date = 'Date is required.';
+    }
+
+    // content / textarea
+    if (!formData.content.trim()) {
+      newErrors.content = 'Content cannot be empty.';
+    }
+
+    return newErrors;
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const newErrors = validate();
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
+    setSubmittedData(formData);
+    console.log('Form submitted:', formData);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <fieldset className="fieldset bg-[#59dcda] border-base-300 rounded-box w-xs border p-4">
+        <legend className="fieldset-legend text-inherit">New Entry</legend>
+        <label className="label">
+          <input
+            name="title"
+            value={formData.title}
+            type="text"
+            className="input bg-[#99e7e5] border-base-300 border"
+            placeholder="Title"
+            onChange={handleChange}
+          />
+        </label>
+        {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
+        <label className="label">
+          <input
+            name="imageUrl"
+            value={formData.imageUrl}
+            type="url"
+            className="input bg-[#99e7e5] border-base-300 border"
+            placeholder="Image URL"
+            onChange={handleChange}
+          />
+        </label>
+        {errors.imageUrl && (
+          <p className="text-red-500 text-sm">{errors.imageUrl}</p>
+        )}
+        <label className="label">
+          <input
+            name="date"
+            value={formData.date}
+            type="date"
+            className="input bg-[#99e7e5] border-base-300 border"
+            onChange={handleChange}
+          />
+        </label>
+        {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
+        <label className="label">
+          <textarea
+            name="content"
+            value={formData.content}
+            className="textarea bg-[#99e7e5] border-base-300 border"
+            placeholder="Content"
+            onChange={handleChange}
+          />
+        </label>
+        {errors.content && (
+          <p className="text-red-500 text-sm">{errors.content}</p>
+        )}
+        <button type="submit" className="btn">
+          Submit
+        </button>
+      </fieldset>
+    </form>
+  );
+};
+
+export default EntryForm;
