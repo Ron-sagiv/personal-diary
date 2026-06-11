@@ -1,7 +1,7 @@
 const App = () => {
   return (
     <div>
-      <h1 className="text-3xl font-bold underline">React + TailwindCSS</h1>
+      <h1 className="text-3xl font-bold ">My Diary</h1>
     </div>
   );
 };
