@@ -60,14 +60,14 @@ const EntryForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <fieldset className="fieldset bg-[#59dcda] border-base-300 rounded-box w-xs border p-4">
-        <legend className="fieldset-legend text-inherit">New Entry</legend>
+      <fieldset className="fieldset bg-[#59dcda] border-base-300 rounded-box  border p-4 w-[100%] mx-auto">
+        {/* <legend className="fieldset-legend text-inherit">New Entry</legend> */}
         <label className="label">
           <input
             name="title"
             value={formData.title}
             type="text"
-            className="input bg-[#99e7e5] border-base-300 border"
+            className="input w-full bg-[#99e7e5] border-base-300 border"
             placeholder="Title"
             onChange={handleChange}
           />
@@ -78,7 +78,7 @@ const EntryForm = () => {
             name="imageUrl"
             value={formData.imageUrl}
             type="url"
-            className="input bg-[#99e7e5] border-base-300 border"
+            className="input w-full bg-[#99e7e5] border-base-300 border"
             placeholder="Image URL"
             onChange={handleChange}
           />
@@ -91,7 +91,7 @@ const EntryForm = () => {
             name="date"
             value={formData.date}
             type="date"
-            className="input bg-[#99e7e5] border-base-300 border"
+            className="input w-full bg-[#99e7e5] border-base-300 border"
             onChange={handleChange}
           />
         </label>
@@ -100,7 +100,7 @@ const EntryForm = () => {
           <textarea
             name="content"
             value={formData.content}
-            className="textarea bg-[#99e7e5] border-base-300 border"
+            className="textarea w-full bg-[#99e7e5] border-base-300 border"
             placeholder="Content"
             onChange={handleChange}
           />
