@@ -41,7 +41,6 @@ const EntryForm = () => {
 
     return newErrors;
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -53,24 +52,31 @@ const EntryForm = () => {
     }
 
     setErrors({});
+    // Get existing entries from localStorage
+    const existingEntries =
+      JSON.parse(localStorage.getItem('diaryEntries')) || [];
 
+    const entryExists = existingEntries.some(
+      (entry) => entry.date === formData.date,
+    );
+
+    if (entryExists) {
+      setErrors({
+        date: 'An entry already exists for this date.',
+      });
+      return;
+    }
     // Create a new diary entry
     const newEntry = {
       id: crypto.randomUUID(),
       ...formData,
     };
 
-    // Get existing entries from localStorage
-    const existingEntries =
-      JSON.parse(localStorage.getItem('diaryEntries')) || [];
-
     // Add new entry
     const updatedEntries = [...existingEntries, newEntry];
 
     // Save back to localStorage
     localStorage.setItem('diaryEntries', JSON.stringify(updatedEntries));
-
-    console.log('Saved entry:', newEntry);
 
     // Clear form after submit
     setFormData({
