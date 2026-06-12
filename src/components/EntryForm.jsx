@@ -9,7 +9,6 @@ const EntryForm = () => {
   });
 
   const [errors, setErrors] = useState({});
-  const [submittedData, setSubmittedData] = useState(null);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -54,8 +53,32 @@ const EntryForm = () => {
     }
 
     setErrors({});
-    setSubmittedData(formData);
-    console.log('Form submitted:', formData);
+
+    // Create a new diary entry
+    const newEntry = {
+      id: crypto.randomUUID(),
+      ...formData,
+    };
+
+    // Get existing entries from localStorage
+    const existingEntries =
+      JSON.parse(localStorage.getItem('diaryEntries')) || [];
+
+    // Add new entry
+    const updatedEntries = [...existingEntries, newEntry];
+
+    // Save back to localStorage
+    localStorage.setItem('diaryEntries', JSON.stringify(updatedEntries));
+
+    console.log('Saved entry:', newEntry);
+
+    // Clear form after submit
+    setFormData({
+      title: '',
+      imageUrl: '',
+      date: '',
+      content: '',
+    });
   };
 
   return (
